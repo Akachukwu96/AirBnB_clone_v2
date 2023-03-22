@@ -1,5 +1,5 @@
 #!/usr/bin/python
-'''New engine DBStorage'''
+'''This script defines New engine DBStorage'''
 
 import os
 import sqlalchemy

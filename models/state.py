@@ -5,13 +5,16 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 import os
 
+cascade_values = "all, delete, delete-orphan"
+
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = relationship('City', cascade="all, delete", backref="state")
-    
+        cities = relationship('City', cascade=cascade_values, backref="state")
+
     @property
     def cities(self):
         '''returns the list of City instances

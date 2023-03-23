@@ -63,7 +63,6 @@ class HBNBCommand(cmd.Cmd):
             if pline:
                 # partition args: (<id>, [<delim>], [<*args>])
                 pline = pline.partition(', ')  # pline convert to tuple
-
                 # isolate _id, stripping quotes
                 _id = pline[0].replace('\"', '')
                 # possible bug here:

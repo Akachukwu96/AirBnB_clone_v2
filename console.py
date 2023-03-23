@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
                 """ Create an object of any class"""
-            new_instance = HBNBCommand.classes[_cls]()
+            params = {}
             for pair in new_args:
                 key_value = pair.split("=")
                 key = key_value[0]
@@ -132,18 +132,19 @@ class HBNBCommand(cmd.Cmd):
                 if (value.startswith('"')):
                     value = value.replace('\\"', '"').replace('_', ' ')
                     value = value.strip('"')
-                    setattr(new_instance, key, value)
+                    params[key] = value
                 elif ('.' in value) and value.replace('.', '').isnumeric():
                     value = float(value)
-                    setattr(new_instance, key, value)
+                    params[key] = value
                 elif (value.isnumeric()):
                     value = int(value)
-                    setattr(new_instance, key, value)
+                    params[key] = value
                 else:
                     pass
+            new_instance = eval(_cls)(**params)
+            print(new_instance.id)
             new_instance.save()
             storage.save()
-            print(new_instance.id)
             return
         """ Create an object of any class"""
         if (args not in HBNBCommand.classes):

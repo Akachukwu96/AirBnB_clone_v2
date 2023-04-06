@@ -42,7 +42,7 @@ def do_deploy(archive_path):
         run('sudo rm /data/web_static/current')  # Delete link
         run('sudo ln -sf {} /data/web_static/current'.format(deatination))
         return True
-    except Exception:
+    except BaseException:
         return False
 
 

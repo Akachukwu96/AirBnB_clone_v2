@@ -9,8 +9,6 @@ from datetime import datetime
 import os
 
 env.hosts = ['3.86.13.6', '35.175.64.13']
-env.user = "ubuntu"
-env.key_filename = "~/.ssh/id_rsa"
 
 
 def do_deploy(archive_path):
@@ -32,5 +30,5 @@ def do_deploy(archive_path):
         run('sudo rm /data/web_static/current')  # Delete link
         run('sudo ln -sf {} /data/web_static/current'.format(deatination))
         return True
-    except Exception:
+    except BaseException:
         return False

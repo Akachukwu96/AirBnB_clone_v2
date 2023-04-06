@@ -28,24 +28,18 @@ def do_deploy(archive_path):
     '''
     if not os.path.exists(archive_path):  # check if path exists
         return False
-    destination = "/data/web_static/releases/{}".format(archive_path[:-4])
-    print("uploading archive")
-    result = put(f'{archive_path}', '/tmp/{archive_path}')  # Upload the arch
-    if result.failed:
+    try:
+        archive_name = archive_path.split('/')[-1]
+        destination = "/data/web_static/releases/{}".format(archive_name[-4])
+        print("uploading archive")
+        result = put(f'{archive_path}', f'/tmp/{archive_name}')
+        print("uncompressing archive")
+        result = run(f'sudo tar -xvzf /tmp/{archive_name} -C {destination}')
+        print("deleting archive")
+        result = run(f'sudo rm -r /tmp/{archive_name}')  # Delete the archive
+        print("creating new symbolic link to latest version")
+        result = run('sudo rm /data/web_static/current')  # Delete link
+        result = run(f'sudo ln -sf {destination} /data/web_static/current')
         return False
-    print("uncompressing archive")
-    result = run(f'tar -xvzf /tmp/{archive_path} -C {destination}', hide=False, capture=True)
-    if result.failed:
+    except Exception:
         return False
-    print("deleting archive")
-    result = run(f'sudo rm -r /tmp/{archive_path}')  # Delete the archive
-    if result.failed:
-        return False
-    print("creating new symbolic link to latest version")
-    result = run('sudo rm /data/web_static/current')  # Delete link
-    if result.failed:
-        return False
-    result = run(f'ln -sf {destination} /data/web_static/current')
-    if result.failed:
-        return False
-    return True

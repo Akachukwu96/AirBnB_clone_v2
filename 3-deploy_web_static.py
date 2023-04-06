@@ -52,3 +52,11 @@ def do_deploy(archive_path):
         return False
     except Exception:
         return False
+
+
+def deploy():
+    """Create and distribute an archive to web servers."""
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)

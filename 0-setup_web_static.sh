@@ -4,9 +4,12 @@
 apt-get update
 apt-get install -y nginx
 
-mkdir -p /data/web_static/releases/test/
+mkdir -p /data/
+mkdir -p /data/web_static/
+mkdir -p /data/web_static/releases/
 mkdir -p /data/web_static/shared/
-echo "Holberton School" > /data/web_static/releases/test/index.html
+mkdir -p /data/web_static/releases/test/
+echo "ALX_africa $HOSTNAME successfully working" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 chown -R ubuntu /data/
@@ -23,7 +26,7 @@ printf %s "server {
         index index.html index.htm;
     }
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 http://google.com/;
     }
     error_page 404 /404.html;
     location /404 {

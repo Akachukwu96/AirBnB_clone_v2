@@ -31,24 +31,19 @@ def do_deploy(archive_path):
     try:
         archive_name = archive_path.split('/')[-1]
         destination = "/data/web_static/releases/{}".format(archive_name[:-4])
-        
-        print("uploading archive")
+
         put(f'{archive_path}', f'/tmp/{archive_name}')
-        
-        print("uncompressing archive")
+
         run(f'sudo mkdir -p {destination}')
         run(f'sudo tar -xvzf /tmp/{archive_name} -C {destination}')
         run(f'sudo mv {destination}/web_static/* {destination}')
         run(f'sudo rm -rf {destination}/web_static')
-        
-        print("deleting /tmp/archive")
+
         run(f'sudo rm -r /tmp/{archive_name}')  # Delete the archive
-        
-        print("creating new symbolic link to latest version")
+
         run('sudo rm /data/web_static/current')  # Delete link
         run(f'sudo ln -sf {destination} /data/web_static/current')
-        
-        print("New Version Deployed!")
+
         return False
     except Exception:
         return False

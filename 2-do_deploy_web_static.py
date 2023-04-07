@@ -29,7 +29,7 @@ def do_deploy(archive_path):
         run("if [ -L /data/web_static/current ];\
                 then rm /data/web_static/current; fi")
         run('sudo ln -s {} /data/web_static/current'.format(destination))
-        print("\nNew Versions Deployed")
+        print("\nNew Version Deployed !!!")
         return True
     except BaseException:
         return False

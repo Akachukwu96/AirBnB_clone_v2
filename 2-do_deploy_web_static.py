@@ -22,13 +22,14 @@ def do_deploy(archive_path):
         put(archive_path, '/tmp/')
 
         run('sudo mkdir -p {}'.format(destination))
-        run('sudo tar -xvzf /tmp/{} -C {}'.format(archive_name, destination))
-        run('sudo rm -r /tmp/{}'.format(archive_name))
+        run('sudo tar -xzf /tmp/{} -C {}'.format(archive_name, destination))
+        run('sudo rm /tmp/{}'.format(archive_name))
         run('sudo mv {}/web_static/* {}'.format(destination, destination))
         run('sudo rm -rf {}/web_static'.format(destination))
-
-        run('sudo rm /data/web_static/current')  # Delete link
-        run('sudo ln -sf {} /data/web_static/current'.format(deatination))
+        run("if [ -L /data/web_static/current ];\
+                then rm /data/web_static/current; fi")
+        run('sudo ln -s {} /data/web_static/current'.format(destination))
+        print("\nNew Versions Deployed")
         return True
     except BaseException:
         return False

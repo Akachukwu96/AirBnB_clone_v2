@@ -14,6 +14,6 @@ def do_pack():
     arch_name = "web_static_{}".format(datetime.now().strftime("%Y%m%d%H%M%S"))
     result = local('tar -czvf versions/{}.tgz web_static'.format(arch_name))
     if result.succeeded:
-        return "/versions/{}".format(arch_name)
+        return "versions/{}.tgz".format(arch_name)
     else:
         return None

@@ -4,7 +4,7 @@ must be listening on 0.0.0.0, port 5000
 /: display “Hello HBNB!”
 /hbnb: display “HBNB”'''
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -41,6 +41,12 @@ def python_text(text="is cool"):
 def number(n):
     '''display “n is a number” only if n is an integer'''
     return "{} is a number".format(n)
+
+
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def number_template(n):
+    '''display a HTML page only if n is an integer'''
+    return render_template('5-number.html')
 
 
 if __name__ == "__main__":

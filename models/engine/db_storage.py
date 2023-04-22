@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 '''This script defines New engine DBStorage'''
 
 import os

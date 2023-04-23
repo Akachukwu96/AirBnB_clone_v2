@@ -137,7 +137,8 @@ class HBNBCommand(cmd.Cmd):
                     pass
             new_instance.save()
             print(new_instance.id)
-        except:
+        except Exception as e:
+            print(str(e))
             print("** class doesn't exist **")
             return
 
@@ -170,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 

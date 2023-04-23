@@ -1,16 +1,18 @@
 #!/usr/bin/python3
-
-""" Defines the City Module for HBNB project """
+""" City Module for HBNB project """
+from os import getenv
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-cascade_values = 'all, delete, delete-orphan'
-
-
 class City(BaseModel, Base):
-    """ The city class, contains state ID and name """
+    """ The city class, contains state ID & name """
     __tablename__ = "cities"
-    name = Column(String(128), nullable=False)
-    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-    places = relationship('Place', cascade=cascade_values, backref='cities')
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        name = Column(String(128), nullable=False)
+        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+        places = relationship("Place", backref="cities",
+                              cascade="all, delete, delete-orphan")
+    else:
+        state_id = ""
+        name = ""

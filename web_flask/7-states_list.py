@@ -5,7 +5,7 @@ display a HTML page with list of states'''
 
 from flask import Flask, render_template
 from models import storage
-from models.state import State
+
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -20,7 +20,8 @@ def close_storage(exception=None):
 @app.route('/states_list', strict_slashes=False)
 def list_states():
     '''lists states objects in database'''
-    states = storage.all("State").values()
+    from models.state import State
+    states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
 

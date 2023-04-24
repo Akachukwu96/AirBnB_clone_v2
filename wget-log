@@ -1,0 +1,3 @@
+--2023-04-24 09:00:45--  https://s3.amazonaws.com/alx-intranet.hbtn.io/files/correction_system/290/1631/main_0.py?X-Amz-Algorithm=AWS4-HMAC-SHA256
+Resolving s3.amazonaws.com (s3.amazonaws.com)... failed: Temporary failure in name resolution.
+wget: unable to resolve host address ‘s3.amazonaws.com’

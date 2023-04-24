@@ -7,10 +7,8 @@ from sqlalchemy import Column, Integer, String, DateTime
 import models
 import os
 
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-    Base = declarative_base()
-else:
-    Base = object
+#if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+Base = declarative_base()
 
 
 class BaseModel:
